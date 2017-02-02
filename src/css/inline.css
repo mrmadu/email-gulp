@@ -1,0 +1,129 @@
+body {
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  background-color: #FFFFFF; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td {
+  color: #333333;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-align: left;
+  mso-line-height-rule: exactly;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none; }
+
+img {
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  display: block;
+  width: 100%;
+  outline: none;
+  border: 0;
+  text-decoration: none;
+  -ms-interpolation-mode: bicubic; }
+
+.table-email {
+  max-width: 590px;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto; }
+
+.table-header {
+  background-color: burlywood;
+  width: 100%; }
+
+.td-header {
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  text-align: center;
+  font-size: 21px; }
+
+.table-medium {
+  background-color: darkseagreen; }
+
+.td-medium-text {
+  padding-top: 15px;
+  padding-right: 10px;
+  padding-bottom: 15px;
+  padding-left: 10px; }
+
+.table-columns {
+  background-color: skyblue;
+  width: 100%; }
+
+.td-columns {
+  padding-top: 10px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-left: 5px; }
+
+.table-col {
+  width: 50%; }
+
+.td-col {
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  width: 295px;
+  text-align: center; }
+
+.col-img {
+  max-width: 270px;
+  max-height: 180px; }
+
+.link-col-action {
+  color: #333333;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  text-align: left;
+  mso-line-height-rule: exactly;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 5px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  -ms-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  background-color: orangered;
+  color: #FFFFFF;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase; }
