@@ -44,7 +44,10 @@ gulp.task('pug', function () {
     return gulp.src(srcPug) // Источник Pug (файл src/pug/email.pug)
         .pipe(plumber()) // Обработка ошибок Pug
         .pipe(debug({title: 'Pug source'})) // Отслеживание источника Pug
-        .pipe(pug({ pretty: true })) // Преобразование Pug в HTML
+        .pipe(pug({
+            pretty: true,
+            doctype: 'HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"'
+        })) // Преобразование Pug в HTML
         .pipe(debug({title: 'Pug'})) // Отслеживание работы Pug
         .pipe(gulp.dest(destPug)) // Сохранение HTML-шаблона письма в папке src
         .pipe(debug({title: 'Pug dest'})); // Отслеживание сохранения HTML-шаблона
