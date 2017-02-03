@@ -12,9 +12,9 @@ var gulp = require('gulp'), // Gulp
 
 // Задание путей к используемым файлам и папкам:
 var srcPug = './src/pug/email.pug', // Источник для таска pug
-    srcStyles = './src/sass/styles/inline.scss', // Источник для таска sass
+    srcStyles = './src/sass/styles/inline.scss', // Источник для таска styles
     destPug = './src', // Папка сохранения результатов работы таска pug
-    destStyles = './src/css', // Папка сохранения результатов работы таска sass
+    destStyles = './src/css', // Папка сохранения результатов работы таска styles
     html = './src/email.html', // Файл email.html
     css = './src/css/inline.css', // Файл inline.css
     watchPug = './src/pug/**/*.pug', // Переменная для отслеживания (вотчера) всех Pug-файлов
