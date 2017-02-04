@@ -19,24 +19,31 @@ var srcPug = './src/pug/email.pug', // Источник для таска pug
     css = './src/css/inline.css', // Файл inline.css
     watchPug = './src/pug/**/*.pug', // Переменная для отслеживания (вотчера) всех Pug-файлов
     watchSass = './src/sass/**/*.scss', // Переменная для отслеживания (вотчера) всех Sass-файлов
+    watchDist = [html, css], // Переменная для изменения шаблона письма в продакшен-папке dist
     dist = './dist'; // Папка для продакшен dist
-
-// Таск очистки (удаления) продакшен-папки dist:
-gulp.task('clean', function () {
-    return del(dist); // Папка очистки dist
-});
 
 // Подключение Browsersync:
 var browserSync = require('browser-sync').create(),
     reload = browserSync.reload;
 
+// Таск предварительной очистки (удаления) продакшен-папки dist:
+gulp.task('clean', function () {
+    return del(dist);
+});
+
 // Таск для работы Browsersync:
-gulp.task('serve', function () {
+gulp.task('serve', ['clean'], function() {
     browserSync.init({
-        server: {baseDir: './src', index: 'email.html'},
-        browser: 'opera'
+        server: { // Настройки сервера
+            baseDir: './src', // Базовая директория
+            index: 'email.html' // Индексный файл
+        },
+        browser: 'opera' // Назначение браузера
     });
-    browserSync.watch(['./src/**/*.*']).on('change', reload); // Отслеживание изменений
+    gulp.watch(watchPug, ['pug']); // Отслеживание изменений Pug-файлов
+    gulp.watch(watchSass, ['styles']); // Отслеживание изменений Sass-файлов
+    gulp.watch(watchDist, ['inline']); // Изменение шаблона письма в продакшен-папке dist
+    gulp.watch(html).on('change', reload); // Обновление браузера в случае изменения индексного файла email.html в папке src
 });
 
 // Таск для работы Pug:
@@ -44,13 +51,14 @@ gulp.task('pug', function () {
     return gulp.src(srcPug) // Источник Pug (файл src/pug/email.pug)
         .pipe(plumber()) // Обработка ошибок Pug
         .pipe(debug({title: 'Pug source'})) // Отслеживание источника Pug
-        .pipe(pug({
-            pretty: true,
-            doctype: 'HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"'
-        })) // Преобразование Pug в HTML
+        .pipe(pug({ // Преобразование Pug в HTML
+            pretty: true, // Форматирование разметки в HTML-файле
+            doctype: 'HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"' // Установка doctype
+        }))
         .pipe(debug({title: 'Pug'})) // Отслеживание работы Pug
         .pipe(gulp.dest(destPug)) // Сохранение HTML-шаблона письма в папке src
-        .pipe(debug({title: 'Pug dest'})); // Отслеживание сохранения HTML-шаблона
+        .pipe(debug({title: 'Pug dest'})) // Отслеживание сохранения HTML-шаблона
+        .pipe(browserSync.stream()); // Browsersync
 });
 
 // Таск для работы Styles:
@@ -61,11 +69,12 @@ gulp.task('styles', function () {
         .pipe(sass()) // Преобразование Sass в CSS
         .pipe(debug({title: 'Sass'})) // Отслеживание работы Sass
         .pipe(gulp.dest(destStyles)) // Сохранение результатов в файл src/css/inline.css
-        .pipe(debug({title: 'Sass dest'})); // Отслеживание сохранения
+        .pipe(debug({title: 'Sass dest'})) // Отслеживание сохранения
+        .pipe(browserSync.stream()); // Browsersync
 });
 
-// Таск для формирования стилей инлайн из внешнего файла inline.css:
-gulp.task('inline', ['pug', 'styles'], function() {
+// Таск для формирования инлайн-стилей из внешнего файла inline.css:
+gulp.task('inline', function() {
     return gulp.src(html) // Источник для формирования инлайн-файла (файл src/email.html)
         .pipe(debug({title: 'Inline CSS sourse'})) // Отслеживание источника
         .pipe(inlineCss({ // Преобразование стилей из внешнего файла inline.css в инлайн-стили
@@ -77,12 +86,5 @@ gulp.task('inline', ['pug', 'styles'], function() {
         .pipe(debug({title: 'Inline CSS dest'})); // Отслеживание сохранения
 });
 
-// Таск вотчера:
-gulp.task('watch', ['inline'], function () {
-    gulp.watch(watchPug, ['pug']); // Отслеживание изменений Pug-файлов
-    gulp.watch(watchSass, ['styles']); // Отслеживание изменений Sass-файлов
-    gulp.watch([html, css], ['inline']); // Отслеживание изменений файла для продакшен dist/email.html
-});
-
 // Запуск Gulp:
-gulp.task('default', ['clean', 'serve', 'watch']);
+gulp.task('default', ['serve']);
