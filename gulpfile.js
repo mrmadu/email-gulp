@@ -19,15 +19,15 @@ var srcPug = './src/pug/email.pug', // Источник для таска pug
     css = './src/css/inline.css', // Файл inline.css
     watchPug = './src/pug/**/*.pug', // Переменная для отслеживания (вотчера) всех Pug-файлов
     watchSass = './src/sass/**/*.scss', // Переменная для отслеживания (вотчера) всех Sass-файлов
-    watchDist = [html, css], // Переменная для изменения шаблона письма в продакшен-папке dist
-    dist = './dist'; // Папка для продакшен dist
+    watchDist = [html, css], // Переменная для изменения шаблона письма в distribution-папке dist
+    dist = './dist'; // distribution-папка dist
 
 // Подключение Browsersync:
 var browserSync = require('browser-sync').create(),
     reload = browserSync.reload;
 
-// Таск предварительной очистки (удаления) продакшен-папки dist:
-gulp.task('clean', function () {
+// Таск предварительной очистки (удаления) distribution-папки dist:
+gulp.task('clean', ['build'], function () { // Перед запуском таска clean выполняется таск build (см. ниже)
     return del(dist);
 });
 
@@ -42,8 +42,8 @@ gulp.task('serve', ['clean'], function() {
     });
     gulp.watch(watchPug, ['pug']); // Отслеживание изменений Pug-файлов
     gulp.watch(watchSass, ['styles']); // Отслеживание изменений Sass-файлов
-    gulp.watch(watchDist, ['inline']); // Изменение шаблона письма в продакшен-папке dist
-    gulp.watch(html).on('change', reload); // Обновление браузера в случае изменения индексного файла email.html в папке src
+    gulp.watch(watchDist, ['inline']); // Изменение шаблона письма в distribution-папке dist
+    gulp.watch(html).on('change', reload); // Обновление браузера в случае изменения индексного файла email.html в development-папке src
 });
 
 // Таск для работы Pug:
@@ -73,6 +73,9 @@ gulp.task('styles', function () {
         .pipe(browserSync.stream()); // Browsersync
 });
 
+// Сборка pug и styles:
+gulp.task('build', ['pug', 'styles']);
+
 // Таск для формирования инлайн-стилей из внешнего файла inline.css:
 gulp.task('inline', function() {
     return gulp.src(html) // Источник для формирования инлайн-файла (файл src/email.html)
@@ -82,7 +85,7 @@ gulp.task('inline', function() {
             applyTableAttributes: true // Преобразование табличных стилей в атрибуты
         }))
         .pipe(debug({title: 'Inline CSS'})) // Отслеживание преобразования
-        .pipe(gulp.dest(dist)) // Сохранение результата в папку dist
+        .pipe(gulp.dest(dist)) // Сохранение результата в distribution-папку dist
         .pipe(debug({title: 'Inline CSS dest'})); // Отслеживание сохранения
 });
 
