@@ -10,14 +10,14 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.18.7",
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-debug": "^3.0.0",
     "gulp-inline-css": "^3.1.0",
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-pug": "^3.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
-    "pug": "^2.0.0-beta10"
+    "pug": "^2.0.0-beta11"
   }
 }
