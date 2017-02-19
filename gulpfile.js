@@ -3,6 +3,7 @@
 // Подключение плагинов через переменные:
 var gulp = require('gulp'), // Gulp
     debug = require('gulp-debug'), // Отслеживание тасков в терминале
+    del = require('del'), // Удаление папок и файлов
     inlineCss = require('gulp-inline-css'), // Создание инлайн-стилей
     notify = require("gulp-notify"), // Вывод надписей при ошибках
     plumber = require('gulp-plumber'), // Обработка ошибок
@@ -25,13 +26,13 @@ var browserSync = require('browser-sync').create(),
     reload = browserSync.reload;
 
 // Таск для работы Browsersync:
-gulp.task('serve', ['inline'], function() {
+gulp.task('serve', ['build'], function() {
     browserSync.init({
         server: { // Настройки сервера
             baseDir: devDir, // Базовая директория
             index: 'email.html' // Индексный файл
         },
-        browser: 'opera' // Назначение браузера
+        browser: 'firefox' // Назначение браузера
     });
     gulp.watch(pugDir, ['pug']); // Отслеживание изменений Pug-файлов
     gulp.watch(sassDir, ['styles']); // Отслеживание изменений Sass-файлов
@@ -69,8 +70,13 @@ gulp.task('styles', function () {
 // Сборка pug и styles:
 gulp.task('build', ['pug', 'styles']);
 
+// Таск для предварительной очистки (удаления) distribution-папки:
+gulp.task('clean', function () {
+    return del(distDir);
+});
+
 // Таск для формирования инлайн-стилей из внешнего файла inline.css:
-gulp.task('inline', ['build'], function() {
+gulp.task('inline', ['clean'], function() {
     return gulp.src(htmlFile) // Исходник для таска inline (файл src/email.html)
         .pipe(debug({title: 'Inline CSS sourse'})) // Отслеживание исходника таска inline
         .pipe(inlineCss({ // Преобразование стилей из внешнего файла inline.css в инлайн-стили
