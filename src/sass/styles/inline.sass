@@ -1,0 +1,76 @@
+@import "../settings/mixins.scss";
+
+body 
+	@include margin(0, auto, 0, auto);
+	background-color: $light-color;
+
+table 
+	border-collapse: collapse;
+	border-spacing: 0;
+
+td 
+	@include font-normal();
+	@include margin(0, 0, 0, 0);
+	@include padding(0, 0, 0, 0);
+	@include text-size-adjust(none);
+
+img 
+	@include margin(0, auto, 0, auto);
+	@include padding(0, 0, 0, 0);
+	display: block;
+	width: 100%;
+	outline: none;
+	border: 0;
+	text-decoration: none;
+	-ms-interpolation-mode: bicubic;
+
+.table-email 
+	max-width: $width;
+	@include margin(0, auto, 0, auto);
+
+.table-header 
+	background-color: $accent-color-1;
+	width: 100%;
+
+.td-header 
+	@include padding(10px, 10px, 10px, 10px);
+	text-align: center;
+	font-size: round($fz * 1.5);
+
+.table-medium 
+	background-color: $accent-color-2;
+
+.td-medium-text 
+	@include padding(15px, 10px, 15px, 10px);
+
+.table-columns 
+	background-color: $accent-color-3;
+	width: 100%;
+
+.td-columns 
+	@include padding(10px, 5px, 10px, 5px);
+
+.table-col 
+	width: 50%;
+
+.td-col 
+	@include padding(5px, 10px, 5px, 10px);
+	width: $width / 2;
+	text-align: center;
+
+.col-img 
+	max-width: 270px;
+	max-height: 180px;
+
+.link-col-action 
+	@include font-normal();
+	@include margin(0, 0, 0, 0);
+	@include padding(5px, 15px, 5px, 15px);
+	@include text-size-adjust(none);
+	background-color: $action-color;
+	color: $light-color;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+

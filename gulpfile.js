@@ -15,7 +15,7 @@ var devDir = './src', // development-папка
     htmlFile = devDir + '/email.html', // Файл email.html
     pugDir = devDir + '/pug/**/*.pug', // Все Pug-файлы в папке pug
     pugFile = devDir + '/pug/email.pug', // Исходник для таска pug, файл email.pug
-    sassDir = devDir + '/sass/**/*.scss', // Все Sass-файлы в папке sass
+    sassDir = devDir + '/sass/**/*.sass', // Все Sass-файлы в папке sass
     sassFile = devDir + '/sass/styles/inline.scss', // Исходник для таска styles
     cssDir = devDir + '/css', // Папка сохранения результатов работы таска styles
     cssFile = devDir + '/css/inline.css', // Файл inline.css
@@ -32,7 +32,8 @@ gulp.task('serve', ['build'], function() {
             baseDir: devDir, // Базовая директория
             index: 'email.html' // Индексный файл
         },
-        browser: 'firefox' // Назначение браузера
+        notify: false,
+        browser: 'safari' // Назначение браузера
     });
     gulp.watch(pugDir, ['pug']); // Отслеживание изменений Pug-файлов
     gulp.watch(sassDir, ['styles']); // Отслеживание изменений Sass-файлов
